@@ -31,6 +31,13 @@ public class LoginService {
 		return loginRepo.findByUserEmailAndUserPassword(email, password);
 	}
 	
+	/**
+	 * Given the username, email, and password a new account is created and stored in the database
+	 * @param username
+	 * @param email
+	 * @param password
+	 * @return the login object of the new user
+	 */
 	public Login signUpUser(String username, String email, String password) {
 		
 		Login newUser = new Login(username, email, password);
