@@ -82,6 +82,7 @@ public class LoginController {
 	 * @param session
 	 * @return Generic response entity holding no data
 	 */
+	@PostMapping("/logout")
 	public ResponseEntity<Void> logout(HttpSession session){
 		session.removeAttribute("userId");
 		
