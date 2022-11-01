@@ -9,3 +9,5 @@ CREATE TABLE login (
 
 INSERT INTO login VALUES (DEFAULT, 'test', 'test@gmail.com', 'password');
 
+SELECT * FROM login;
+
