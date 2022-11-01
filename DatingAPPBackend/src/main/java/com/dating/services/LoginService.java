@@ -18,6 +18,8 @@ public class LoginService {
 		this.loginRepo = loginRepo;
 	}
 	
+	///Methods
+	
 	/**
 	 * Find a user's login info using the input email and password.
 	 * @param email: The email of the user
@@ -27,6 +29,14 @@ public class LoginService {
 	public Optional<Login> loginUser(String email, String password){
 		
 		return loginRepo.findByUserEmailAndUserPassword(email, password);
+	}
+	
+	public Login signUpUser(String username, String email, String password) {
+		
+		Login newUser = new Login(username, email, password);
+		
+		loginRepo.save(newUser);
+		return newUser;
 	}
 	
 }

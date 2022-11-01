@@ -40,5 +40,13 @@ public class Login {
 	
 	@Column(name = "user_password")
 	private String userPassword;
+
+	public Login(String userName, String userEmail, String userPassword) {
+		this.userName = userName;
+		this.userEmail = userEmail;
+		this.userPassword = userPassword;
+	}
+	
+	
 	
 }
