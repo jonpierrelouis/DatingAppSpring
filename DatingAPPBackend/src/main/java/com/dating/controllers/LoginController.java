@@ -1,5 +1,8 @@
 package com.dating.controllers;
 
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +26,20 @@ public class LoginController {
 	
 	///Endpoints
 	
-	public ResponseEntity<Login> login(HttpSession session) {
+	public ResponseEntity<Login> login(HttpSession session, HttpServletRequest req) {
 		
-		return null;
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		
+		Optional<Login> optionalLogin = loginService.loginUser(email, password);
+		
+		if(!optionalLogin.isPresent()) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		session.setAttribute("userId", optionalLogin.get().getUserId());
+		
+		return ResponseEntity.ok(optionalLogin.get());
 	}
 
 }
