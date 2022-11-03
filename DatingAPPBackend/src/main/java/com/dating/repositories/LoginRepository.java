@@ -9,5 +9,7 @@ import com.dating.models.Login;
 public interface LoginRepository extends JpaRepository<Login, Integer> {
 
 	Optional<Login> findByUserEmailAndUserPassword(String email, String password);
+	
+	Optional<Login> findByUserId(int userId);
 
 }
