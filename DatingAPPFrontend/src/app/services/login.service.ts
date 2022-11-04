@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import Login from '../models/Login';
 import { environment } from 'src/environments/environment';
+import Login from '../models/Login';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginServiceService {
+export class LoginService {
 
+  
   private baseLoginUrl = `${environment.baseUrl}/user`;
 
   constructor(private http: HttpClient) { }
@@ -62,5 +63,7 @@ export class LoginServiceService {
 
     return this.http.post<Login>(`${this.baseLoginUrl}/register`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials});
   }
+
+  
 
 }
