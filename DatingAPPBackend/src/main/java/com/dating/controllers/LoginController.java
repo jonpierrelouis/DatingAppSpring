@@ -43,12 +43,16 @@ public class LoginController {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		
+		System.out.println(email +" " +password);
+		
 		Optional<Login> optionalLogin = loginService.loginUser(email, password);
 		
 		if(!optionalLogin.isPresent()) {
+			System.out.println("Failed");
 			return ResponseEntity.badRequest().build();
 		}
 		
+		System.out.println("signed in");
 		session.setAttribute("userId", optionalLogin.get().getUserId());
 		
 		return ResponseEntity.ok(optionalLogin.get());
