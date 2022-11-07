@@ -38,6 +38,10 @@ export class LoginComponentComponent implements OnInit {
     this.page = 2;
   }
 
+  switchToLoginPage(){
+    this.page = 1;
+  }
+
   registerUser(){
     //check to see if passwords are the same
     if(this.submitPassword == this.submitPasswordRetype && this.submitPassword != ""){
