@@ -35,7 +35,7 @@ export class LoginService {
       .set('email', email)
       .set('password', password);
 
-    return this.http.post<Login>(`${this.baseLoginUrl}/login`, params, {headers: environment.jsonHeaders, withCredentials: environment.withCredentials});
+    return this.http.post<Login>(`${this.baseLoginUrl}/login`, params, {headers: environment.paramHeaders, withCredentials: environment.withCredentials});
   }
 
   /**
