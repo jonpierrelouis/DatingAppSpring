@@ -9,8 +9,16 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginComponentComponent implements OnInit {
 
   //inputs for forms
+  //default login
   submitEmail: string = "";
   submitPassword: string = "";
+
+  //switch pages
+  page: number = 1;
+
+  //unique to sign up
+  submitName: string = "";
+  submitPasswordRetype: string = "";
 
   constructor(private loginService: LoginService) { };
 
@@ -24,6 +32,23 @@ export class LoginComponentComponent implements OnInit {
     this.loginService.loginUser(this.submitEmail, this.submitPassword).subscribe((resp) =>{
       console.log(resp);
     })
+  }
+
+  switchToSignUpPage(){
+    this.page = 2;
+  }
+
+  registerUser(){
+    //check to see if passwords are the same
+    if(this.submitPassword == this.submitPasswordRetype && this.submitPassword != ""){
+      this.loginService.registerUser(this.submitName, this.submitEmail, this.submitPassword).subscribe((resp) =>{
+        console.log(resp);
+        this.submitEmail = "";
+        this.submitPassword = "";
+        this.page = 1;
+      })
+    }
+
   }
 
 }
