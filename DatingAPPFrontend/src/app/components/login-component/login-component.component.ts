@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-component',
@@ -20,9 +21,15 @@ export class LoginComponentComponent implements OnInit {
   submitName: string = "";
   submitPasswordRetype: string = "";
 
-  constructor(private loginService: LoginService) { };
+  constructor(private loginService: LoginService, private router: Router) { };
 
   ngOnInit(): void {
+    let route = this.router.url;
+    // console.log(route);
+    if(route == 'register'){
+      this.page = 2;
+    }
+
   }
 
   loginUser(){
@@ -31,6 +38,7 @@ export class LoginComponentComponent implements OnInit {
 
     this.loginService.loginUser(this.submitEmail, this.submitPassword).subscribe((resp) =>{
       console.log(resp);
+      this.router.navigate(['homepage']);
     })
   }
 
