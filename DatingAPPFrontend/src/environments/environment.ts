@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  withCredentials: true,
+  baseUrl: "http://localhost:9002",
+  jsonHeaders: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': 'http://localhost:4200',
+  },
+  paramHeaders: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Access-Control-Allow-Origin': 'http://localhost:4200',
+  },
 };
 
 /*

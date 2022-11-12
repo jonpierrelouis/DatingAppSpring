@@ -46,4 +46,13 @@ public class LoginService {
 		return newUser;
 	}
 	
+	/**
+	 * Given a userId return the corresponding user
+	 * @param userId
+	 * @return the login object of the user
+	 */
+	public Optional<Login> checkUserById(int userId) {
+		
+		return loginRepo.findByUserId(userId);
+	}
 }

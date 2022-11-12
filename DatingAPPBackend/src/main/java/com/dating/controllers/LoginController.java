@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,12 +43,16 @@ public class LoginController {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		
+		System.out.println(email +" " +password);
+		
 		Optional<Login> optionalLogin = loginService.loginUser(email, password);
 		
 		if(!optionalLogin.isPresent()) {
+			System.out.println("Failed");
 			return ResponseEntity.badRequest().build();
 		}
 		
+		System.out.println("signed in");
 		session.setAttribute("userId", optionalLogin.get().getUserId());
 		
 		return ResponseEntity.ok(optionalLogin.get());
@@ -87,6 +92,30 @@ public class LoginController {
 		session.removeAttribute("userId");
 		
 		return ResponseEntity.ok().build();
+	}
+	
+	/**
+	 * Purpose is to check to see if a user is logged in or not.
+	 * Will send back 200 and login data if logged in
+	 * Will send back 423 if not logged in
+	 * @param session
+	 * @return code 200 + login data or code 423
+	 */
+	@PostMapping("/check")
+	public ResponseEntity<Login> checkUser(HttpSession session){
+		
+		Object userId = (Object) session.getAttribute("userId");
+		
+		//response if not logged in
+		if(userId == null) {
+			
+			return ResponseEntity.status(HttpStatus.LOCKED).build();			
+		}
+
+		Optional<Login> check = loginService.checkUserById((Integer)userId);
+		
+		//response if logged in
+		return ResponseEntity.status(HttpStatus.OK).body(check.get());
 	}
 
 }
