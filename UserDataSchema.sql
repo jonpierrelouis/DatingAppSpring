@@ -1,4 +1,5 @@
 DROP TABLE login;
+DROP TABLE profile;
 
 CREATE TABLE login (
 	user_id SERIAL PRIMARY KEY,
