@@ -42,8 +42,6 @@ public class ProfileController {
 		
 		
 		return ResponseEntity.ok(optionalProfile.get());
-		
-//		return null;
 	}
 
 }
