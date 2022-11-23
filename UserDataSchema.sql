@@ -24,5 +24,7 @@ CREATE TABLE profile (
 	CONSTRAINT ref_name FOREIGN KEY (login_user_id) REFERENCES login (user_id)
 );
 
-SELECT * FROM login;
+INSERT INTO profile VALUES (DEFAULT, 3, 'Jonny', 11, 12, 1996, 'i am a person', 'Boston', 'MA', NULL);
 
+SELECT * FROM login;
+SELECT * FROM profile;

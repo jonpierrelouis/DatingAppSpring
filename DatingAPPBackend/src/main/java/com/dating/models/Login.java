@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -43,6 +45,7 @@ public class Login {
 	@Column(name = "user_password")
 	private String userPassword;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
 	private Profile profile;
 

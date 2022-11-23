@@ -45,13 +45,13 @@ public class Profile {
 	private int birthYear;
 	
 	@Column(name = "about_yourself")
-	private int aboutYourself;
+	private String aboutYourself;
 	
 	@Column(name = "city")
-	private int city;
+	private String city;
 	
 	@Column(name = "state")
-	private int state;
+	private String state;
 	
 	@Column(name = "image")
 	private byte[] image;
