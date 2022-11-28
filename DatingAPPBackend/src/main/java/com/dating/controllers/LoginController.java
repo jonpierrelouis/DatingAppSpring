@@ -91,6 +91,7 @@ public class LoginController {
 	public ResponseEntity<Void> logout(HttpSession session){
 		session.removeAttribute("userId");
 		
+		System.out.println("logged out");
 		return ResponseEntity.ok().build();
 	}
 	
