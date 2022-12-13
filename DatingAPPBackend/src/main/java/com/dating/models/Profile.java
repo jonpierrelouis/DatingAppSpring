@@ -1,10 +1,17 @@
 package com.dating.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -55,4 +62,14 @@ public class Profile {
 	
 	@Column(name = "image")
 	private byte[] image;
+	
+	@Column(name = "gender")
+	private String gender;
+	
+	@Column(name = "sex_orientation")
+	private String sexOrientation;
+	
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinColumn(name = "login_user_id")
+	private List<Likes> likes;	
 }
