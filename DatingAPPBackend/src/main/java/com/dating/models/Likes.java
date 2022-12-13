@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -27,14 +28,16 @@ import lombok.Setter;
 public class Likes {
 	
 	@Id
-	@GeneratedValue
+	@Column(name = "like_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int likesId;
 	
+	@Column(name = "like_name")
+	String singleLike;
+
 	@JsonIgnore
 	@ManyToMany
 	private List<Profile> profiles;
 	
-	@Column(name = "single_like")
-	String singleLike;
 
 }

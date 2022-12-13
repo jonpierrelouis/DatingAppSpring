@@ -69,7 +69,10 @@ public class Profile {
 	@Column(name = "sex_orientation")
 	private String sexOrientation;
 	
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@JoinColumn(name = "login_user_id")
-	private List<Likes> likes;	
+	@ManyToMany
+	@JoinTable(
+		name = "user_likes",
+		joinColumns = @JoinColumn(name = "profile_id"),
+		inverseJoinColumns = @JoinColumn(name = "like_id_fk"))
+	private List<Likes> likes;
 }

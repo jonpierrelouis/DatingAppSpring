@@ -1,5 +1,7 @@
 DROP TABLE login;
 DROP TABLE profile;
+DROP TABLE likes;
+DROP TABLE user_likes;
 
 CREATE TABLE login (
 	user_id SERIAL PRIMARY KEY,
@@ -28,12 +30,25 @@ CREATE TABLE profile (
 
 INSERT INTO profile VALUES (DEFAULT, 3, 'Jonny', 11, 12, 1996, 'i am a person', 'Boston', 'MA', NULL);
 
-
 CREATE TABLE likes(
-	login_user_id int,
-	single_like varchar(20),
-	CONSTRAINT ref_name FOREIGN KEY (login_user_id) REFERENCES login (user_id)
+	like_id SERIAL PRIMARY KEY,
+	like_name varchar(20)
 );
+
+CREATE TABLE user_likes(
+	profile_id int,
+	like_id_fk int,
+	CONSTRAINT ref_name FOREIGN KEY (profile_id) REFERENCES profile (profile_id),
+	CONSTRAINT ref_name2 FOREIGN KEY (like_id_fk) REFERENCES likes (like_id)
+);
+
+INSERT INTO likes VALUES (DEFAULT, 'Reading');
+INSERT INTO likes VALUES (DEFAULT, 'Writing');
+INSERT INTO likes VALUES (DEFAULT, 'Running');
+INSERT INTO likes VALUES (DEFAULT, 'Traveling');
+
+INSERT INTO user_likes VALUES(1, 3);
+INSERT INTO user_likes VALUES(1,1);
 
 CREATE TABLE dislikes(
 	login_user_id int,
@@ -43,3 +58,5 @@ CREATE TABLE dislikes(
 
 SELECT * FROM login;
 SELECT * FROM profile;
+SELECT * FROM likes;
+SELECT * FROM user_likes;
