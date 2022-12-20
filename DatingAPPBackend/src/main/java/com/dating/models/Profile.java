@@ -75,4 +75,11 @@ public class Profile {
 		joinColumns = @JoinColumn(name = "profile_id"),
 		inverseJoinColumns = @JoinColumn(name = "like_id_fk"))
 	private List<Likes> likes;
+	
+	@ManyToMany
+	@JoinTable(
+			name =  "user_dislikes",
+			joinColumns = @JoinColumn(name = "profile_id"),
+			inverseJoinColumns = @JoinColumn(name = "dislike_id_fk"))
+	private List<Dislikes> dislikes;
 }
