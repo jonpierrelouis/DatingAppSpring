@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dating.models.Login;
 import com.dating.models.Profile;
 import com.dating.repositories.ProfileRepository;
 
@@ -22,6 +23,18 @@ public class ProfileService {
 		return pr.findByLoginUserId(userId);
 	}
 	
-	
+	public Profile saveNewProfile(int userId) {
+		
+		Profile newProfile = new Profile();
+		
+		Login newLogin = new Login();
+		newLogin.setUserId(userId);
+		
+		newProfile.setLogin(newLogin);
+		System.out.println(userId);
+		System.out.println(newProfile);
+		
+		return pr.save(newProfile);
+	}
 
 }

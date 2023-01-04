@@ -71,6 +71,8 @@ INSERT INTO user_likes VALUES(1,1);
 INSERT INTO user_dislikes VALUES(1, 3);
 INSERT INTO user_dislikes VALUES(1,1);
 
+--DELETE FROM profile WHERE profile_id = 2;
+
 SELECT * FROM login;
 SELECT * FROM profile;
 SELECT * FROM likes;

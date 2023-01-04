@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dating.models.Login;
 import com.dating.models.Profile;
 import com.dating.services.ProfileService;
 
@@ -27,6 +28,12 @@ public class ProfileController {
 		this.ps = ps;
 	}
 	
+	/**
+	 * Gets all the information of the user's profile
+	 * @param session
+	 * @param req
+	 * @return
+	 */
 	@PostMapping("myProfile")
 	public ResponseEntity<Profile> getProfile(HttpSession session, HttpServletRequest req){
 		
@@ -36,8 +43,12 @@ public class ProfileController {
 		
 		Optional<Profile> optionalProfile = ps.getProfile((Integer)userId);
 		
+		//if a new account was created, a new profile is created
 		if(!optionalProfile.isPresent()) {
-			return ResponseEntity.badRequest().build();
+			ps.saveNewProfile((Integer)userId);
+			
+//			return ResponseEntity.badRequest().build();
+			return getProfile(session, req);
 		}
 		
 		
