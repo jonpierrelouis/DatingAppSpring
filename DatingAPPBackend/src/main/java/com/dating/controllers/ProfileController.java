@@ -47,7 +47,6 @@ public class ProfileController {
 		if(!optionalProfile.isPresent()) {
 			ps.saveNewProfile((Integer)userId);
 			
-//			return ResponseEntity.badRequest().build();
 			return getProfile(session, req);
 		}
 		
