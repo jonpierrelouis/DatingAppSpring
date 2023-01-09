@@ -19,13 +19,13 @@ import com.dating.repositories.UserLikesRespository;
 public class ProfileService {
 	
 	private final ProfileRepository pr;
-	private final LikeRepository lr;
+	//private final LikeRepository lr;
 	//private final UserLikesRespository ulr;
 
 	@Autowired
-	public ProfileService(ProfileRepository pr, LikeRepository lr) {
+	public ProfileService(ProfileRepository pr) {
 		this.pr = pr;
-		this.lr = lr;
+		//this.lr = lr;
 		//this.ulr = ulr;
 	}
 	
@@ -153,23 +153,23 @@ public class ProfileService {
 	 * @param like
 	 * @return
 	 */
-	private Likes addLikeToDataTable(String like) {
-	
-		//set like to lowercase
-		StringUtils.capitalize(like);
-				
-		//save like to the like table
-		Likes newLike = new Likes(like);
-				
-		try {
-			return lr.save(newLike);
-			
-		}catch(DataIntegrityViolationException e) {
-			System.out.println("\n This like already exists in the database");
-		}
-		
-		return lr.findBySingleLikeEquals(like);
-	}
+//	private Likes addLikeToDataTable(String like) {
+//	
+//		//set like to lowercase
+//		StringUtils.capitalize(like);
+//				
+//		//save like to the like table
+//		Likes newLike = new Likes(like);
+//				
+//		try {
+//			return lr.save(newLike);
+//			
+//		}catch(DataIntegrityViolationException e) {
+//			System.out.println("\n This like already exists in the database");
+//		}
+//		
+//		return lr.findBySingleLikeEquals(like);
+//	}
 	
 	/**
 	 * Function to add a like to their list of likes
@@ -178,10 +178,10 @@ public class ProfileService {
 	 */
 	public Optional<Profile> addLike(int userId, String like) {
 		//add the like to the list of likes
-		Likes f = addLikeToDataTable(like);
+		//Likes f = addLikeToDataTable(like);
 		
 		//create new userlike obj and add the userId and the likeId in the database
-		UserLikes newUserLike = new UserLikes((Integer) userId, f.getLikesId());
+		//UserLikes newUserLike = new UserLikes((Integer) userId, f.getLikesId());
 		
 		//if it does not exist already save the data
 //		if(!ulr.existsByUserIdAndLikeId(userId, userId)) {

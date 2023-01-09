@@ -8,6 +8,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import com.dating.keys.UserLikesKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class UserLikes {
 	
 	@Id
 	@Column(name = "user_id_fk")
+	@JsonIgnore
 	int userId;
 	
 	@Id
