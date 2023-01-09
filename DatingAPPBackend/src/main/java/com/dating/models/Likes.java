@@ -32,12 +32,26 @@ public class Likes {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int likesId;
 	
-	@Column(name = "like_name")
+	@Column(name = "like_name", unique=true, nullable=false)
 	String singleLike;
 
 	@JsonIgnore
 	@ManyToMany
 	private List<Profile> profiles;
+
+	public Likes(int likesId, String singleLike) {
+		super();
+		this.likesId = likesId;
+		this.singleLike = singleLike;
+	}
+
+	public Likes(String singleLike) {
+		super();
+		this.singleLike = singleLike;
+	}
+	
+	
+	
 	
 
 }

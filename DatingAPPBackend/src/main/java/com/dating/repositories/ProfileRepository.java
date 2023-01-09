@@ -11,5 +11,5 @@ import com.dating.models.Profile;
 public interface ProfileRepository extends JpaRepository<Profile, Integer> {
 	
 	public Optional<Profile> findByLoginUserId(int userId);
-
+	
 }

@@ -146,4 +146,21 @@ public class ProfileController {
 		
 		return ResponseEntity.ok(ps.changeSexOrientation((Integer) userId, orientation));
 	}
+	
+	/**
+	 * Endpoint to add a like to the list
+	 * @param session
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("add/like")
+	public ResponseEntity<Profile> addLike(HttpSession session, HttpServletRequest req){
+		
+		Object userId = session.getAttribute("userId");
+		String like = req.getParameter("like");
+		
+		Optional<Profile> profile = ps.addLike((Integer) userId, like);
+		
+		return ResponseEntity.ok(profile.get());
+	}
 }
