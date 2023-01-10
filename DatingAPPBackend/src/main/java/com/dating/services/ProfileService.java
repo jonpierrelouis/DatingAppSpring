@@ -188,11 +188,9 @@ public class ProfileService {
 		
 		//if it does not exist already save the data
 		if(!ulr.existsByUserIdAndLikeId(currentProfileId, userId)) {
-//			System.out.println("It does not exist");
+			
 			ulr.save(newUserLike);
 		}
-		
-		//ulr.save(newUserLike);
 		
 		return getProfile(userId);
 

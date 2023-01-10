@@ -39,8 +39,6 @@ public class ProfileController {
 		
 		Object userId = session.getAttribute("userId");
 		
-		System.out.println(userId +" Data Type: ");
-		
 		Optional<Profile> optionalProfile = ps.getProfile((Integer)userId);
 		
 		//if a new account was created, a new profile is created
@@ -49,7 +47,6 @@ public class ProfileController {
 			
 			return getProfile(session, req);
 		}
-		
 		
 		return ResponseEntity.ok(optionalProfile.get());
 	}
