@@ -38,9 +38,9 @@ CREATE TABLE likes(
 );
 
 CREATE TABLE user_likes(
-	user_id_fk int,
+	profile_id_fk int,
 	like_id_fk int,
-	CONSTRAINT ref_name FOREIGN KEY (user_id_fk) REFERENCES login (user_id),
+	CONSTRAINT ref_name FOREIGN KEY (profile_id_fk) REFERENCES profile (profile_id),
 	CONSTRAINT ref_name2 FOREIGN KEY (like_id_fk) REFERENCES likes (like_id)
 );
 

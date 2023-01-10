@@ -27,7 +27,7 @@ import lombok.Setter;
 public class UserLikes {
 	
 	@Id
-	@Column(name = "user_id_fk")
+	@Column(name = "profile_id_fk")
 	@JsonIgnore
 	int userId;
 	

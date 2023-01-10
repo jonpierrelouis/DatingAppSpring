@@ -1,12 +1,9 @@
 package com.dating.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -70,11 +67,12 @@ public class Profile {
 	@Column(name = "sex_orientation")
 	private String sexOrientation;
 	
+	
 	@ManyToMany
 	@JoinTable(
-		name = "user_likes",
-		joinColumns = @JoinColumn(name = "profile_id"),
-		inverseJoinColumns = @JoinColumn(name = "like_id_fk"))
+			name = "user_likes",
+			joinColumns = @JoinColumn(name = "profile_id_fk"),
+			inverseJoinColumns = @JoinColumn(name = "like_id_fk"))
 	private List<Likes> likes;
 	
 	@ManyToMany

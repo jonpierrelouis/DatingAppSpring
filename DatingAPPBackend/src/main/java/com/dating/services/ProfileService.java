@@ -13,20 +13,20 @@ import com.dating.models.Profile;
 import com.dating.models.UserLikes;
 import com.dating.repositories.LikeRepository;
 import com.dating.repositories.ProfileRepository;
-import com.dating.repositories.UserLikesRespository;
+import com.dating.repositories.UserLikesRepository;
 
 @Service
 public class ProfileService {
 	
 	private final ProfileRepository pr;
-	//private final LikeRepository lr;
-	//private final UserLikesRespository ulr;
+	private final LikeRepository lr;
+	private final UserLikesRepository ulr;
 
 	@Autowired
-	public ProfileService(ProfileRepository pr) {
+	public ProfileService(ProfileRepository pr, LikeRepository lr, UserLikesRepository ulr) {
 		this.pr = pr;
-		//this.lr = lr;
-		//this.ulr = ulr;
+		this.lr = lr;
+		this.ulr = ulr;
 	}
 	
 	public Optional<Profile> getProfile(int userId) {
@@ -153,23 +153,23 @@ public class ProfileService {
 	 * @param like
 	 * @return
 	 */
-//	private Likes addLikeToDataTable(String like) {
-//	
-//		//set like to lowercase
-//		StringUtils.capitalize(like);
-//				
-//		//save like to the like table
-//		Likes newLike = new Likes(like);
-//				
-//		try {
-//			return lr.save(newLike);
-//			
-//		}catch(DataIntegrityViolationException e) {
-//			System.out.println("\n This like already exists in the database");
-//		}
-//		
-//		return lr.findBySingleLikeEquals(like);
-//	}
+	private Likes addLikeToDataTable(String like) {
+	
+		//set like to lowercase
+		StringUtils.capitalize(like);
+				
+		//save like to the like table
+		Likes newLike = new Likes(like);
+				
+		try {
+			return lr.save(newLike);
+			
+		}catch(DataIntegrityViolationException e) {
+			System.out.println("\n This like already exists in the database");
+		}
+		
+		return lr.findBySingleLikeEquals(like);
+	}
 	
 	/**
 	 * Function to add a like to their list of likes
@@ -178,16 +178,19 @@ public class ProfileService {
 	 */
 	public Optional<Profile> addLike(int userId, String like) {
 		//add the like to the list of likes
-		//Likes f = addLikeToDataTable(like);
+		Likes f = addLikeToDataTable(like);
+
+		int currentProfileId = pr.findByLoginUserId(userId).get().getProfileId();
 		
 		//create new userlike obj and add the userId and the likeId in the database
-		//UserLikes newUserLike = new UserLikes((Integer) userId, f.getLikesId());
+		UserLikes newUserLike = new UserLikes(currentProfileId, f.getLikesId());
+		
 		
 		//if it does not exist already save the data
-//		if(!ulr.existsByUserIdAndLikeId(userId, userId)) {
-////			System.out.println("It does not exist");
-//			ulr.save(newUserLike);
-//		}
+		if(!ulr.existsByUserIdAndLikeId(currentProfileId, userId)) {
+//			System.out.println("It does not exist");
+			ulr.save(newUserLike);
+		}
 		
 		//ulr.save(newUserLike);
 		
