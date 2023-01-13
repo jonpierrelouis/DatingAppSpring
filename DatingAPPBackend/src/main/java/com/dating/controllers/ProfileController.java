@@ -162,6 +162,21 @@ public class ProfileController {
 	}
 	
 	/**
+	 * Endpoint to add to the user's dislike list
+	 * @param session
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("add/dislike")
+	public ResponseEntity<Profile> addDislike(HttpSession session, HttpServletRequest req){
+		
+		Object userId = session.getAttribute("userId");
+		String dislike = req.getParameter("like");
+		
+		return ResponseEntity.ok(ps.addDislike((Integer) userId, dislike));
+	}
+	
+	/**
 	 * Endpoint to remove a like in their list
 	 * @param session
 	 * @param req
@@ -174,6 +189,23 @@ public class ProfileController {
 		String like = req.getParameter("like");
 		
 		Profile profile = ps.removeLike((Integer) userId, like);
+		
+		return ResponseEntity.ok(profile);
+	}
+	
+	/**
+	 * Endpoint to remove a dislike in their list
+	 * @param session
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("remove/dislike")
+	public ResponseEntity<Profile> removeDislike(HttpSession session, HttpServletRequest req){
+		
+		Object userId = session.getAttribute("userId");
+		String dislike = req.getParameter("like");
+		
+		Profile profile = ps.removeDislike((Integer) userId, dislike);
 		
 		return ResponseEntity.ok(profile);
 	}

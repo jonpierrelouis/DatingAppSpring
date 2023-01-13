@@ -44,27 +44,17 @@ CREATE TABLE user_likes(
 	CONSTRAINT ref_name2 FOREIGN KEY (like_id_fk) REFERENCES likes (like_id)
 );
 
-CREATE TABLE dislikes(
-	dislike_id SERIAL PRIMARY KEY,
-	dislike_name varchar(20) UNIQUE NOT NULL 
-);
-
 CREATE TABLE user_dislikes(
-	profile_id int,
-	dislike_id_fk int,
-	CONSTRAINT ref_name FOREIGN KEY (profile_id) REFERENCES profile (profile_id),
-	CONSTRAINT ref_name2 FOREIGN KEY (dislike_id_fk) REFERENCES dislikes (dislike_id)
+	profile_id_fk int,
+	like_id_fk int,
+	CONSTRAINT ref_name FOREIGN KEY (profile_id_fk) REFERENCES profile (profile_id),
+	CONSTRAINT ref_name2 FOREIGN KEY (like_id_fk) REFERENCES likes (like_id)
 );
 
 INSERT INTO likes VALUES (DEFAULT, 'Reading');
 INSERT INTO likes VALUES (DEFAULT, 'Writing');
 INSERT INTO likes VALUES (DEFAULT, 'Running');
 INSERT INTO likes VALUES (DEFAULT, 'Traveling');
-
-INSERT INTO dislikes VALUES (DEFAULT, 'Swimming');
-INSERT INTO dislikes VALUES (DEFAULT, 'Golfing');
-INSERT INTO dislikes VALUES (DEFAULT, 'Knitting');
-INSERT INTO dislikes VALUES (DEFAULT, 'Partying');
 
 INSERT INTO user_likes VALUES(1, 3);
 INSERT INTO user_likes VALUES(1,1);

@@ -12,9 +12,11 @@ import org.springframework.util.StringUtils;
 import com.dating.models.Likes;
 import com.dating.models.Login;
 import com.dating.models.Profile;
+import com.dating.models.UserDislikes;
 import com.dating.models.UserLikes;
 import com.dating.repositories.LikeRepository;
 import com.dating.repositories.ProfileRepository;
+import com.dating.repositories.UserDislikesRepository;
 import com.dating.repositories.UserLikesRepository;
 
 @Service
@@ -23,12 +25,14 @@ public class ProfileService {
 	private final ProfileRepository pr;
 	private final LikeRepository lr;
 	private final UserLikesRepository ulr;
+	private final UserDislikesRepository udr;
 
 	@Autowired
-	public ProfileService(ProfileRepository pr, LikeRepository lr, UserLikesRepository ulr) {
+	public ProfileService(ProfileRepository pr, LikeRepository lr, UserLikesRepository ulr, UserDislikesRepository udr) {
 		this.pr = pr;
 		this.lr = lr;
 		this.ulr = ulr;
+		this.udr = udr;
 	}
 	
 	public Optional<Profile> getProfile(int userId) {
@@ -199,6 +203,30 @@ public class ProfileService {
 	}
 	
 	/**
+	 * Function to add a dislike to the list of their dislikes and return the updated profile
+	 * @param userId
+	 * @param dislike
+	 * @return
+	 */
+	public Profile addDislike(int userId, String dislike) {
+	
+		//add like to the list
+		Likes f = addLikeToDataTable(dislike);
+		
+		int currentProfileId = pr.findByLoginUserId(userId).get().getProfileId();
+		
+		UserDislikes newUserLike = new UserDislikes(currentProfileId, f.getLikesId());
+		
+		//if it does not exist already save the data
+		if(!udr.existsByUserIdAndLikeId(currentProfileId, userId)) {
+					
+			udr.save(newUserLike);
+		}
+		
+		return getProfile(userId).get();
+	}
+	
+	/**
 	 * This function will remove a like from the user's like list  and return the updated profile
 	 * @param userId
 	 * @param like
@@ -212,6 +240,24 @@ public class ProfileService {
 		int likeId = lr.findBySingleLikeEquals(like).getLikesId();
 		
 		ulr.removeByUserIdAndLikeId(currentProfileId, likeId);
+		
+		return getProfile(userId).get();
+	}
+	
+	/**
+	 * This function will remove a dislike from the user's like list  and return the updated profile
+	 * @param userId
+	 * @param like
+	 * @return
+	 */
+	@Transactional
+	public Profile removeDislike(int userId, String like) {
+		
+		int currentProfileId  = pr.findByLoginUserId(userId).get().getProfileId();
+		
+		int likeId = lr.findBySingleLikeEquals(like).getLikesId();
+		
+		udr.removeByUserIdAndLikeId(currentProfileId, likeId);
 		
 		return getProfile(userId).get();
 	}
