@@ -2,6 +2,8 @@ package com.dating.services;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -172,11 +174,11 @@ public class ProfileService {
 	}
 	
 	/**
-	 * Function to add a like to their list of likes
+	 * Function to add a like to their list of likes and return the updated profile
 	 * @param like
 	 * @return
 	 */
-	public Optional<Profile> addLike(int userId, String like) {
+	public Profile addLike(int userId, String like) {
 		//add the like to the list of likes
 		Likes f = addLikeToDataTable(like);
 
@@ -192,7 +194,25 @@ public class ProfileService {
 			ulr.save(newUserLike);
 		}
 		
-		return getProfile(userId);
+		return getProfile(userId).get();
 
+	}
+	
+	/**
+	 * This function will remove a like from the user's like list  and return the updated profile
+	 * @param userId
+	 * @param like
+	 * @return
+	 */
+	@Transactional
+	public Profile removeLike(int userId, String like) {
+		
+		int currentProfileId  = pr.findByLoginUserId(userId).get().getProfileId();
+		
+		int likeId = lr.findBySingleLikeEquals(like).getLikesId();
+		
+		ulr.removeByUserIdAndLikeId(currentProfileId, likeId);
+		
+		return getProfile(userId).get();
 	}
 }

@@ -8,4 +8,6 @@ import com.dating.models.UserLikes;
 public interface UserLikesRepository extends JpaRepository<UserLikes, UserLikesKey> {
 
 	public boolean existsByUserIdAndLikeId(int userId, int likeId);
+	
+	public void removeByUserIdAndLikeId(int userId, int likeId);
 }

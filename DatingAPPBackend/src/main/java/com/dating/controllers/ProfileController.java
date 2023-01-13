@@ -156,8 +156,25 @@ public class ProfileController {
 		Object userId = session.getAttribute("userId");
 		String like = req.getParameter("like");
 		
-		Optional<Profile> profile = ps.addLike((Integer) userId, like);
+		Profile profile = ps.addLike((Integer) userId, like);
 		
-		return ResponseEntity.ok(profile.get());
+		return ResponseEntity.ok(profile);
+	}
+	
+	/**
+	 * Endpoint to remove a like in their list
+	 * @param session
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("remove/like")
+	public ResponseEntity<Profile> removeLike(HttpSession session, HttpServletRequest req){
+		
+		Object userId = session.getAttribute("userId");
+		String like = req.getParameter("like");
+		
+		Profile profile = ps.removeLike((Integer) userId, like);
+		
+		return ResponseEntity.ok(profile);
 	}
 }
