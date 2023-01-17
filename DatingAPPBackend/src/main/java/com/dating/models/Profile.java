@@ -1,10 +1,15 @@
 package com.dating.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,7 +29,7 @@ import lombok.Setter;
 public class Profile {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "profile_id")
 	private int profileId;
 
@@ -55,4 +60,25 @@ public class Profile {
 	
 	@Column(name = "image")
 	private byte[] image;
+	
+	@Column(name = "gender")
+	private String gender;
+	
+	@Column(name = "sex_orientation")
+	private String sexOrientation;
+	
+	
+	@ManyToMany
+	@JoinTable(
+			name = "user_likes",
+			joinColumns = @JoinColumn(name = "profile_id_fk"),
+			inverseJoinColumns = @JoinColumn(name = "like_id_fk"))
+	private List<Likes> likes;
+	
+	@ManyToMany
+	@JoinTable(
+			name =  "user_dislikes",
+			joinColumns = @JoinColumn(name = "profile_id_fk"),
+			inverseJoinColumns = @JoinColumn(name = "like_id_fk"))
+	private List<Likes> dislikes;
 }

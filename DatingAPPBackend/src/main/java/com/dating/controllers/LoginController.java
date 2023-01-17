@@ -45,6 +45,9 @@ public class LoginController {
 		
 		System.out.println(email +" " +password);
 		
+		
+		//check to see if data exists
+		//if it does send bad request
 		Optional<Login> optionalLogin = loginService.loginUser(email, password);
 		
 		if(!optionalLogin.isPresent()) {
