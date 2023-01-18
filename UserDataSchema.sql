@@ -69,3 +69,4 @@ SELECT * FROM login;
 SELECT * FROM profile;
 SELECT * FROM likes;
 SELECT * FROM user_likes;
+SELECT * FROM user_dislikes;
